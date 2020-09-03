@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 
 CLOCK_SPEED = 33 #60Hz - Refresh rate
 BOUNCE_STRENGTH = 20
+MOVE_INCREMENT = 15
 
 class Graphics(tk.Canvas):
     def __init__(self):
@@ -13,6 +14,8 @@ class Graphics(tk.Canvas):
         self.ball_position = (300, 500)
         global BOUNCE_STRENGTH
         self.y_vel = 0
+        self.direction = "Right"
+        self.bind_all("<Key>", self.on_key_press)
 
         self.load_assets()
         self.create_objects()
@@ -48,11 +51,17 @@ class Graphics(tk.Canvas):
 
         self.coords(self.find_withtag("ball"), self.ball_position)
 
-
     def bounce_ball(self):
         global BOUNCE_STRENGTH
         self.y_vel = BOUNCE_STRENGTH
+    
+    def on_key_press(self, e):
+        new_direction = e.keysym
+        all_directions = ("Left", "Right")
 
+        if new_direction in all_directions:
+            self.direction = new_direction
+    
 #create window
 root = tk.Tk()
 root.title("Graphics and Animations")
