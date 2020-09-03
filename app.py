@@ -4,13 +4,15 @@ import time
 from PIL import Image, ImageTk
 
 CLOCK_SPEED = 33 #60Hz - Refresh rate
+BOUNCE_STRENGTH = 20
 
 class Graphics(tk.Canvas):
     def __init__(self):
         super().__init__(width=600, height=620, highlightthickness=0)
 
-        self.ball_position = (300, 400)
-        self.y_vel = 10
+        self.ball_position = (300, 500)
+        global BOUNCE_STRENGTH
+        self.y_vel = 0
 
         self.load_assets()
         self.create_objects()
@@ -48,7 +50,8 @@ class Graphics(tk.Canvas):
 
 
     def bounce_ball(self):
-        self.y_vel = 10
+        global BOUNCE_STRENGTH
+        self.y_vel = BOUNCE_STRENGTH
 
 #create window
 root = tk.Tk()
