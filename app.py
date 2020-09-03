@@ -4,15 +4,13 @@ import time
 from PIL import Image, ImageTk
 
 CLOCK_SPEED = 33 #60Hz - Refresh rate
-BOUNCE_STRENGTH = 10
 
 class Graphics(tk.Canvas):
     def __init__(self):
         super().__init__(width=600, height=620, highlightthickness=0)
 
-        self.ball_position = (300, 500)
-        global BOUNCE_STRENGTH
-        self.y_vel = BOUNCE_STRENGTH
+        self.ball_position = (300, 400)
+        self.y_vel = 10
 
         self.load_assets()
         self.create_objects()
@@ -43,12 +41,14 @@ class Graphics(tk.Canvas):
             #checks if next pos is below or on y:500
             self.bounce_ball()
         
-        self.y_vel -= 1
         self.ball_position = (x_pos, y_pos - self.y_vel)
+        self.y_vel -= 1
+
+        self.coords(self.find_withtag("ball"), self.ball_position)
+
 
     def bounce_ball(self):
-        global BOUNCE_STRENGTH
-        self.y_vel = BOUNCE_STRENGTH
+        self.y_vel = 10
 
 #create window
 root = tk.Tk()
